@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation: Ideate Industrial Product Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A1A1A;
+            color: #E0E0E0;
+            line-height: 1.6;
+        }
+
+        .claude-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .claude-header {
+            border-bottom: 1px solid #333333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .claude-header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .claude-header .subtitle {
+            font-size: 1.1rem;
+            color: #A0A0A0;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .claude-nav {
+            background-color: #252525;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 10px;
+            z-index: 50;
+        }
+
+        .claude-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .claude-nav li {
+            margin: 5px;
+        }
+
+        .claude-nav a {
+            text-decoration: none;
+            color: #E0E0E0;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+
+        .claude-nav a:hover,
+        .claude-nav a.active {
+            background-color: #4A90E2;
+            color: #FFFFFF;
+        }
+
+        .claude-section {
+            background-color: #222222;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .claude-section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #383838;
+            padding-bottom: 10px;
+        }
+
+        .claude-section h3 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #C0C0C0;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .claude-section p,
+        .claude-section ul {
+            margin-bottom: 15px;
+            color: #B0B0B0;
+        }
+
+        .claude-section ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .claude-section li {
+            margin-bottom: 8px;
+        }
+
+        .claude-code {
+            background-color: #161616;
+            color: #D0D0D0;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Menlo', 'Consolas', monospace;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+
+        .claude-code pre {
+            margin: 0;
+        }
+
+        .claude-note {
+            background-color: #2D2D2D;
+            border-left: 4px solid #4A90E2;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            color: #E0E0E0;
+        }
+
+        .claude-note strong {
+            color: #4A90E2;
+        }
+
+        .claude-button {
+            background-color: #4A90E2;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .claude-button:hover {
+            background-color: #357ABD;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #A0A0A0;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #333333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Accordion styles */
+        .accordion-item {
+            margin-bottom: 10px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: #2D2D2D;
+            color: #E0E0E0;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .accordion-header:hover {
+            background-color: #383838;
+        }
+
+        .accordion-content {
+            padding: 0px 18px;
+            background-color: #222222;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+
+        .accordion-content.open {
+            max-height: 1500px;
+            /* Increased for potentially taller interactive content */
+            padding: 15px 18px;
+        }
+
+        .accordion-arrow {
+            transition: transform 0.3s ease-out;
+        }
+
+        .accordion-header.open .accordion-arrow {
+            transform: rotate(90deg);
+        }
+
+        /* Interactive elements styling (inspired by doc_fr.html, adapted for Claude theme) */
+        .interactive-area {
+            background-color: #282828;
+            /* Slightly lighter than section bg */
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #383838;
+        }
+
+        .interactive-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #C0C0C0;
+            /* Lighter than main text for labels */
+        }
+
+        .interactive-select,
+        .interactive-input,
+        .interactive-textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #444444;
+            margin-bottom: 15px;
+            background-color: #1F1F1F;
+            /* Darker input fields */
+            color: #E0E0E0;
+            box-sizing: border-box;
+        }
+
+        .interactive-select:focus,
+        .interactive-input:focus,
+        .interactive-textarea:focus {
+            outline: none;
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.5);
+        }
+
+        .interactive-output {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #161616;
+            /* Same as code block */
+            border: 1px dashed #444444;
+            border-radius: 6px;
+            font-family: 'Menlo', 'Consolas', monospace;
+            font-size: 0.9rem;
+            color: #A0D9EF;
+            /* Light blue for output text */
+            min-height: 50px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .slider-container {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .slider-container input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .slider-value-display {
+            text-align: center;
+            font-weight: 500;
+            color: #4A90E2;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="claude-container">
+        <header class="claude-header">
+            <h1>Ideate Industrial Product Design</h1>
+            <p class="subtitle">Comprehensive Documentation for the Streamlit Application</p>
+        </header>
+
+        <nav class="claude-nav" id="mainNav">
+            <ul>
+                <li><a href="#overview" class="active">Overview</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#tech-stack">Tech Stack</a></li>
+                <li><a href="#key-functions">Key Functions</a></li>
+                <li><a href="#app-tabs">Application Tabs</a></li>
+                <li><a href="#customization">Customization</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+        </nav>
+
+        <section id="overview" class="claude-section">
+            <h2>Overview</h2>
+            <p>The "Ideate Industrial Product Design" application is a powerful tool built with Streamlit, designed to
+                assist industrial designers and creative professionals in generating and refining product concepts. It
+                leverages cutting-edge generative AI models for both text-to-image generation and text generation,
+                enabling users to quickly visualize ideas, explore design variations, and analyze designs based on
+                Design for X (DfX) principles.</p>
+            <p>This application streamlines the early stages of the design process by providing an interactive platform
+                for:</p>
+            <ul>
+                <li>Generating diverse product visuals from textual descriptions.</li>
+                <li>Transforming rough sketches into polished concept images.</li>
+                <li>Evaluating designs against manufacturability, assembly, serviceability, and sustainability criteria.
+                </li>
+                <li>Iteratively refining prompts and images to achieve desired outcomes.</li>
+            </ul>
+            <div class="claude-note">
+                <strong>Goal:</strong> To accelerate design ideation and incorporate DfX considerations early in the
+                product development lifecycle.
+            </div>
+        </section>
+
+        <section id="features" class="claude-section">
+            <h2>Core Features</h2>
+            <div class="accordion-item">
+                <div class="accordion-header"><span>AI-Powered Image Generation</span><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>Utilizes various Stable Diffusion models (SD 1.5, SD 2.1, SDXL, OpenJourney, DeepFloyd IF) to
+                        generate high-quality images from text prompts. Users can select models based on their specific
+                        needs for detail, style, or computational resources.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><span>Intelligent Prompt Generation</span><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>Employs a local LLM (Mistral via Ollama) to generate detailed and effective prompts for image
+                        generation based on user inputs like product category, design focus, and style. This helps users
+                        who may not be expert "prompt engineers."</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><span>Sketch-to-Image Transformation</span><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>Allows users to upload their own sketches (PNG or JPEG). These sketches are processed and used as
+                        control inputs (via ControlNet with Canny edge detection) to guide the image generation process,
+                        translating rough ideas into more concrete visuals.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><span>Design for X (DfX) Analysis & Scoring</span><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>Incorporates DfX principles (DFA, DFM, DFS, DFSust). Users can get feedback on their generated
+                        designs, including a descriptive analysis and a score based on how well the design adheres to
+                        the selected DfX aspect. This feature helps in creating more practical and sustainable designs.
+                    </p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><span>Iterative Prompt & Image Refinement</span><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>Provides a dedicated workflow for iteratively refining prompts and generating images. The system
+                        can automatically suggest prompt modifications and generate multiple design iterations, allowing
+                        users to explore a design space efficiently and converge on the best outcome based on DfX scores
+                        or visual appeal.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><span>Advanced Customization Options</span><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>Offers controls for image size, number of inference steps, guidance scale, negative prompts, seed
+                        values, and low-memory modes for GPU-constrained environments. This allows for fine-tuning the
+                        generation process.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><span>Model Management</span><span class="accordion-arrow">&#9654;</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Efficiently loads and caches AI models to improve performance and reduce wait times. It also
+                        includes mechanisms to clear models from memory, which is crucial when switching between large
+                        models on systems with limited VRAM.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><span>User-Friendly Interface</span><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>A Streamlit-based web interface organized into logical tabs for different functionalities, making
+                        it accessible and easy to use even for those not familiar with the underlying AI technologies.
+                        The interface also includes options to download generated images and their corresponding
+                        prompts.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech-stack" class="claude-section">
+            <h2>Core Technologies</h2>
+            <ul>
+                <li><strong>Streamlit:</strong> For building the interactive web application interface.</li>
+                <li><strong>PyTorch:</strong> The primary deep learning framework used by the diffusion models.</li>
+                <li><strong>Diffusers (Hugging Face):</strong> Library providing pre-trained diffusion models (Stable
+                    Diffusion, ControlNet, etc.) and pipelines for easy use.</li>
+                <li><strong>Ollama (with Mistral):</strong> For running local Large Language Models (LLMs) to power text
+                    generation tasks like prompt enhancement and DfX analysis.</li>
+                <li><strong>Pillow (PIL):</strong> For image processing tasks like resizing, filtering, and format
+                    conversion.</li>
+                <li><strong>NumPy:</strong> For numerical operations, particularly in image analysis and processing.
+                </li>
+            </ul>
+            <div class="claude-note">
+                The application is designed to run locally, leveraging local GPU resources (if available and CUDA is
+                configured) for model inference to ensure privacy and potentially faster processing for users with
+                capable hardware. CPU inference is also supported.
+            </div>
+        </section>
+
+        <section id="key-functions" class="claude-section">
+            <h2>Key Functions Explained</h2>
+            <p>The application's functionality is driven by several core Python functions. Explore them interactively
+                below:</p>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <code>load_model(model_id, device, use_low_memory, model_type)</code>
+                    <span class="accordion-arrow">&#9654;</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Responsible for loading the selected diffusion model (e.g., Stable Diffusion, SDXL) from Hugging
+                        Face or a local cache. It handles device placement (CPU/GPU) and memory optimization options
+                        (like 8-bit loading or model CPU offloading for CUDA devices).</p>
+                    <p><strong>Key aspects:</strong></p>
+                    <ul>
+                        <li>Uses <code>@st.cache_resource</code> to cache loaded models, speeding up subsequent uses.
+                        </li>
+                        <li>Supports different model types ('sd', 'sdxl', 'if') and configures them accordingly.</li>
+                        <li>Initializes ControlNet models alongside base Stable Diffusion models if applicable.</li>
+                        <li>Includes error handling for model loading issues.</li>
+                    </ul>
+                    <div class="claude-code">
+                        <pre><code class="language-python">
+@st.cache_resource
+def load_model(model_id, device, use_low_memory=False, model_type="sd"):
+    # ... logic for loading StableDiffusionPipeline, AutoPipelineForText2Image, ControlNetModel ...
+    # ... handles torch_dtype, safetensors, revisions, safety_checker, cache_dir ...
+    # ... enables memory optimizations like enable_xformers_memory_efficient_attention, enable_model_cpu_offload ...
+    return {"base": pipe, "controlnet": pipe_cn_or_none}
+                    </code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <code>DesignPromptGenerator.generate_prompt(...)</code>
+                    <span class="accordion-arrow">&#9654;</span>
+                </div>
+                <div class="accordion-content">
+                    <p>This method within the <code>DesignPromptGenerator</code> class uses the Mistral LLM (via Ollama)
+                        to create effective image generation prompts. It takes product category, design focus, style,
+                        and optional user input to craft a detailed prompt tailored to the selected image generation
+                        model type.</p>
+                    <p><strong>Key aspects:</strong></p>
+                    <ul>
+                        <li>Constructs a system prompt for the LLM based on predefined categories, focus areas, and
+                            design styles.</li>
+                        <li>Allows for user-specified items or selects from a predefined list.</li>
+                        <li>Cleans the raw LLM output and appends model-specific suffixes (e.g., "professional product
+                            visualization" for SD).</li>
+                        <li>Includes a fallback mechanism if LLM generation fails.</li>
+                    </ul>
+                    <div class="claude-code">
+                        <pre><code class="language-python">
+class DesignPromptGenerator:
+    def generate_prompt(self, category, focus, style, user_input="", model_type="sd", fixed_item=None):
+        # ... logic to select item, focus details, style description ...
+        system_prompt = f"""You are an expert industrial designer..."""
+        response = ollama.generate(model=self.llm_model, prompt=system_prompt, ...)
+        prompt = self._clean_prompt(response["response"], model_type)
+        return prompt
+                    </code></pre>
+                    </div>
+
+                    <div class="interactive-area">
+                        <h4 style="color: #C0C0C0; margin-bottom: 10px;">Try a Simulated Prompt Generation:</h4>
+                        <div>
+                            <label for="sim-category" class="interactive-label">Product Category:</label>
+                            <select id="sim-category" class="interactive-select">
+                                <option value="Wearable">Wearable</option>
+                                <option value="Kitchen Appliance">Kitchen Appliance</option>
+                                <option value="Furniture">Furniture</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="sim-focus" class="interactive-label">Design Focus:</label>
+                            <select id="sim-focus" class="interactive-select">
+                                <option value="Ergonomics">Ergonomics</option>
+                                <option value="Sustainability">Sustainability</option>
+                                <option value="Minimalism">Minimalism</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="sim-style" class="interactive-label">Design Style:</label>
+                            <select id="sim-style" class="interactive-select">
+                                <option value="Modern">Modern</option>
+                                <option value="Retro-futuristic">Retro-futuristic</option>
+                                <option value="Organic">Organic</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="sim-user-input" class="interactive-label">Specific Keywords (optional):</label>
+                            <input type="text" id="sim-user-input" class="interactive-input"
+                                placeholder="e.g., smart watch, coffee maker">
+                        </div>
+                        <button id="simulatePromptBtn" class="claude-button">Simulate Prompt</button>
+                        <div class="interactive-output" id="simulatedPromptOutput">Select options and click "Simulate
+                            Prompt" to see an example.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <code>process_sketch(sketch_file, image_size, threshold, blur_radius)</code>
+                    <span class="accordion-arrow">&#9654;</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Prepares an uploaded sketch image for use with ControlNet. It converts the sketch to a Canny edge
+                        map, which then guides the diffusion model to generate an image that respects the sketch's
+                        outlines.</p>
+                    <p><strong>Key aspects:</strong></p>
+                    <ul>
+                        <li>Resizes the sketch to the target image dimensions.</li>
+                        <li>Applies Gaussian blur and Canny edge detection (via Pillow filters).</li>
+                        <li>Thresholds the edges to create a binary mask.</li>
+                        <li>Returns a PIL Image object ready for ControlNet.</li>
+                    </ul>
+                    <div class="claude-code">
+                        <pre><code class="language-python">
+def process_sketch(sketch_file, image_size, threshold=100, blur_radius=0.5):
+    sketch = Image.open(sketch_file).convert("RGB").resize(image_size, Image.Resampling.LANCZOS)
+    gray = sketch.convert('L').filter(ImageFilter.GaussianBlur(radius=blur_radius))
+    edges = gray.filter(ImageFilter.FIND_EDGES)
+    mask_array = np.array(edges)
+    mask_array = np.where(mask_array > threshold, 255, 0).astype(np.uint8)
+    mask = Image.fromarray(mask_array).convert('RGB')
+    return mask
+                    </code></pre>
+                    </div>
+                    <div class="interactive-area">
+                        <h4 style="color: #C0C0C0; margin-bottom: 10px;">Simulated Sketch Processing:</h4>
+                        <p class="text-sm text-gray-400 mb-3">This is a conceptual illustration. Actual processing
+                            involves complex image manipulation.</p>
+                        <div class="flex flex-col sm:flex-row items-center gap-4">
+                            <div class="text-center">
+                                <img src="https://placehold.co/200x200/333333/888888?text=Original+Sketch"
+                                    alt="Placeholder Sketch" class="rounded border border-gray-500"
+                                    id="simSketchOriginal">
+                                <p class="text-xs mt-1">Original Sketch (Placeholder)</p>
+                            </div>
+                            <div class="text-2xl text-gray-400 transform sm:rotate-0 rotate-90">&rarr;</div>
+                            <div class="text-center">
+                                <img src="https://placehold.co/200x200/222222/555555?text=Canny+Edges"
+                                    alt="Placeholder Canny Edges" class="rounded border border-gray-500"
+                                    id="simSketchProcessed">
+                                <p class="text-xs mt-1">Processed Canny Edges (Placeholder)</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3">Imagine the right image being generated from the left one
+                            by applying edge detection algorithms, guided by parameters like threshold and blur.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><code>get_dfx_rules(aspect)</code><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>Provides predefined rules (positive and negative guidelines) for different Design for X (DfX)
+                        aspects: Design for Assembly (DFA), Design for Manufacturing (DFM), Design for Serviceability
+                        (DFS), and Design for Sustainability (DFSust).</p>
+                    <p><strong>Key aspects:</strong></p>
+                    <ul>
+                        <li>Returns a dictionary of positive and negative design rules for the specified DfX aspect.
+                        </li>
+                        <li>These rules are used in generating DfX feedback and scoring.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <code>generate_image_description(image, aspect, user_text, category, form)</code><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>Analyzes a generated image and combines this with DfX rules and user inputs to create a textual
+                        description of the design. This description forms part of the DfX feedback.</p>
+                    <p><strong>Key aspects:</strong></p>
+                    <ul>
+                        <li>References DfX rules from <code>get_dfx_rules</code>.</li>
+                        <li>Performs basic image analysis (visual complexity via edge detection, dominant color).</li>
+                        <li>Constructs a descriptive paragraph about the product's design features and DfX
+                            considerations.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><code>generate_and_evaluate(pipe_dict, prompt, ...)</code><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>The core function for generating an image using the selected diffusion model and then evaluating
+                        it based on DfX principles. It handles the image generation pipeline call and subsequent DfX
+                        scoring.</p>
+                    <p><strong>Key aspects:</strong></p>
+                    <ul>
+                        <li>Takes the loaded model pipeline (<code>pipe_dict</code>) and various generation parameters.
+                        </li>
+                        <li>Calls the appropriate pipeline (base or ControlNet) to generate the image.</li>
+                        <li>Invokes <code>generate_image_description</code> and <code>score_design_rules</code> for DfX
+                            analysis.</li>
+                        <li>Returns the generated image, seed, DfX score, and description.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header"><code>iterative_prompt_refinement(...)</code><span
+                        class="accordion-arrow">&#9654;</span></div>
+                <div class="accordion-content">
+                    <p>Manages the iterative design process. It takes an initial prompt and DfX specifications, then
+                        generates multiple image variations by slightly modifying the prompt (potentially using an LLM
+                        for suggestions, though current code seems to focus on parameter variations) and evaluating
+                        each.</p>
+                    <p><strong>Key aspects:</strong></p>
+                    <ul>
+                        <li>Runs a loop for a specified number of iterations.</li>
+                        <li>In each iteration, it might adjust the prompt (e.g., by adding DfX keywords or using LLM
+                            suggestions – the provided snippet focuses more on generating with slight variations).</li>
+                        <li>Calls <code>generate_and_evaluate</code> for each variation.</li>
+                        <li>Collects results (image, prompt, score, seed) for comparison.</li>
+                        <li>The main loop in the Streamlit app then displays the best result.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="app-tabs" class="claude-section">
+            <h2>Application Tabs & Workflows</h2>
+            <p>The application interface is organized into several tabs, each dedicated to a specific workflow:</p>
+            <h3>1. Image Generation</h3>
+            <p>This is the primary tab for text-to-image generation. Users can select product details, models, and
+                parameters to generate visuals.</p>
+            <h3>2. Sketch to Image (ControlNet)</h3>
+            <p>Enables users to guide image generation using their own sketches, which are converted to Canny edge maps
+                to influence the ControlNet model.</p>
+            <h3>3. DfX Analysis</h3>
+            <p>Focuses on evaluating a design against DfX principles, providing textual feedback and a score.</p>
+            <h3>4. Iterative Refinement</h3>
+            <p>Automates exploring design variations by iteratively generating and evaluating images based on DfX
+                scores.</p>
+        </section>
+
+        <section id="customization" class="claude-section">
+            <h2>Customization & Advanced Settings</h2>
+            <p>The application offers several ways to customize the generation process. Here's an interactive example
+                for understanding Guidance Scale:</p>
+
+            <div class="interactive-area">
+                <h4 style="color: #C0C0C0; margin-bottom: 10px;">Interactive Guidance Scale (CFG Scale) Explanation:
+                </h4>
+                <label for="guidanceScaleSlider" class="interactive-label">Adjust Guidance Scale:</label>
+                <div class="slider-container">
+                    <input type="range" min="1" max="20" value="7" class="interactive-input" id="guidanceScaleSlider"
+                        list="guidanceTicks">
+                    <datalist id="guidanceTicks">
+                        <option value="1"></option>
+                        <option value="5"></option>
+                        <option value="7"></option>
+                        <option value="10"></option>
+                        <option value="15"></option>
+                        <option value="20"></option>
+                    </datalist>
+                </div>
+                <div class="slider-value-display" id="guidanceScaleValue">Value: 7</div>
+                <div class="interactive-output" id="guidanceScaleExplanation">
+                    A guidance scale of 7 typically offers a good balance between prompt adherence and creative freedom.
+                </div>
+            </div>
+            <br>
+            <p>Other customization options include:</p>
+            <ul>
+                <li><strong>Model Selection:</strong> Choose from various Stable Diffusion models (SD1.5, SDXL, etc.).
+                </li>
+                <li><strong>Device Selection:</strong> Auto GPU/CPU.</li>
+                <li><strong>Low Memory Mode (for CUDA):</strong> Optimizations for VRAM.</li>
+                <li><strong>Image Dimensions:</strong> Predefined sizes.</li>
+                <li><strong>Inference Steps:</strong> Number of denoising steps (e.g., 20-50).</li>
+                <li><strong>Negative Prompt:</strong> Concepts to avoid.</li>
+                <li><strong>Seed:</strong> For reproducible images (-1 for random).</li>
+                <li><strong>ControlNet Parameters:</strong> Conditioning scale, sketch preprocessing.</li>
+                <li><strong>DfX Parameters:</strong> Aspect selection for analysis.</li>
+            </ul>
+        </section>
+
+        <section id="troubleshooting" class="claude-section">
+            <h2>Troubleshooting & Notes</h2>
+            <ul>
+                <li><strong>Model Download Issues:</strong> Ensure stable internet and sufficient disk space in the
+                    cache directory.</li>
+                <li><strong>CUDA/GPU Issues:</strong> Check PyTorch CUDA support and drivers. Use low memory mode or
+                    smaller models for OOM errors.</li>
+                <li><strong>Ollama/Mistral Issues:</strong> Ensure Ollama is running, the model is pulled, and the
+                    server is accessible. Check firewall.</li>
+                <li><strong>Sketch Processing:</strong> Use clear, high-contrast sketches. Adjust Canny parameters if
+                    needed.</li>
+                <li><strong>Performance:</strong> Initial model load is slower. Large models/resolutions take time.</li>
+                <li><strong>DfX Scores:</strong> Heuristic; use with domain knowledge.</li>
+                <li><strong>Python Environment & Dependencies:</strong> Check <code>ModuleNotFoundError</code>; ensure
+                    all packages (streamlit, torch, diffusers, ollama, Pillow, numpy) are installed.</li>
+                <li><strong>File Path Issues:</strong> Verify paths for cache, sketches. Ensure permissions.</li>
+                <li><strong>Insufficient System RAM (CPU):</strong> Monitor RAM. Close other apps, use smaller
+                    models/dimensions.</li>
+                <li><strong>ControlNet Model Issues:</strong> Correct model ID, check cache, verify compatibility.</li>
+                <li><strong>Generic Streamlit Errors:</strong> Check terminal for tracebacks. Simplify actions, update
+                    Streamlit, restart app.</li>
+            </ul>
+            <div class="claude-note">
+                <strong>Logging:</strong> The application uses Python's <code>logging</code> module. Check the console
+                where Streamlit is running for debug messages and error details. The provided script sets the log level
+                to DEBUG.
+            </div>
+        </section>
+
+        <footer
+            style="text-align: center; padding: 30px 0; color: #777777; font-size: 0.9rem; border-top: 1px solid #333333; margin-top: 30px;">
+            Documentation made by Amine Elhend & Mouad Boulaid <br>
+            
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.claude-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    document.querySelectorAll('.claude-nav a').forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Accordion functionality
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            const content = item.querySelector('.accordion-content');
+            const arrow = header.querySelector('.accordion-arrow');
+
+            header.addEventListener('click', () => {
+                const isOpen = content.classList.contains('open');
+                if (isOpen) {
+                    content.classList.remove('open');
+                    header.classList.remove('open');
+                    if (arrow) arrow.style.transform = 'rotate(0deg)';
+                } else {
+                    content.classList.add('open');
+                    header.classList.add('open');
+                    if (arrow) arrow.style.transform = 'rotate(90deg)';
+                }
+            });
+        });
+
+        // Active nav link on scroll
+        const navLinks = document.querySelectorAll('.claude-nav a');
+        const sections = document.querySelectorAll('.claude-section');
+        let currentSection = 'overview';
+
+        window.addEventListener('scroll', () => {
+            sections.forEach(section => {
+                if (window.scrollY >= section.offsetTop - 100) {
+                    currentSection = section.id;
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href').substring(1) === currentSection);
+            });
+        });
+
+        // Interactive Prompt Simulation
+        const simulatePromptBtn = document.getElementById('simulatePromptBtn');
+        if (simulatePromptBtn) {
+            simulatePromptBtn.addEventListener('click', () => {
+                const category = document.getElementById('sim-category').value;
+                const focus = document.getElementById('sim-focus').value;
+                const style = document.getElementById('sim-style').value;
+                const userInput = document.getElementById('sim-user-input').value.trim();
+                const outputDiv = document.getElementById('simulatedPromptOutput');
+
+                let simulatedPrompt = `A high-quality, professional product visualization of a ${category.toLowerCase()}.`;
+                simulatedPrompt += ` The design emphasizes ${focus.toLowerCase()} and embodies a ${style.toLowerCase()} style.`;
+                if (userInput) {
+                    simulatedPrompt += ` Specific features include: ${userInput}.`;
+                }
+                simulatedPrompt += ` Focus on clean lines, realistic materials, and studio lighting.`;
+
+                outputDiv.textContent = simulatedPrompt;
+            });
+        }
+
+        // Interactive Guidance Scale Explanation
+        const guidanceScaleSlider = document.getElementById('guidanceScaleSlider');
+        const guidanceScaleValueDisplay = document.getElementById('guidanceScaleValue');
+        const guidanceScaleExplanation = document.getElementById('guidanceScaleExplanation');
+
+        if (guidanceScaleSlider && guidanceScaleValueDisplay && guidanceScaleExplanation) {
+            function updateGuidanceExplanation() {
+                const value = parseInt(guidanceScaleSlider.value);
+                guidanceScaleValueDisplay.textContent = `Value: ${value}`;
+                let explanationText = "";
+                if (value <= 3) {
+                    explanationText = `Guidance Scale: ${value} - Very low. The model has high creative freedom, potentially straying far from the prompt.`;
+                } else if (value <= 6) {
+                    explanationText = `Guidance Scale: ${value} - Low to moderate. Good for exploration, allows more creativity.`;
+                } else if (value <= 10) {
+                    explanationText = `Guidance Scale: ${value} - Moderate. Typically a good balance between prompt adherence and creativity. This is often a default value.`;
+                } else if (value <= 15) {
+                    explanationText = `Guidance Scale: ${value} - High. The model will adhere very strictly to the prompt, potentially limiting creativity or leading to artifacts if the prompt is too restrictive.`;
+                } else {
+                    explanationText = `Guidance Scale: ${value} - Very high. Extreme adherence to the prompt. Use with caution, as it can amplify prompt flaws.`;
+                }
+                guidanceScaleExplanation.textContent = explanationText;
+            }
+            guidanceScaleSlider.addEventListener('input', updateGuidanceExplanation);
+            // Initial call
+            updateGuidanceExplanation();
+        }
+
+    </script>
+</body>
+
+</html>
