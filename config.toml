@@ -1,0 +1,85 @@
+[server]
+enableStaticServing = true
+
+[theme]
+primaryColor = "#bb5a38"
+backgroundColor = "#f4f3ed"
+secondaryBackgroundColor = "#ecebe3"
+textColor = "#3d3a2a"
+linkColor = "#3d3a2a"
+borderColor = "#d3d2ca"
+showWidgetBorder = true
+baseRadius = "0.6rem"
+font = "Inter"
+codeFont = "Fira Code"
+codeBackgroundColor = "#ecebe4"
+showSidebarBorder = true
+
+[theme.sidebar]
+backgroundColor = "#e8e7dd"
+secondaryBackgroundColor = "#ecebe3"
+
+[[theme.fontFaces]]
+url = "app/static/FiraCode-VF.ttf"
+family = "Fira Code"
+
+[[theme.fontFaces]]
+url = "app/static/styrene/InterThin.otf"
+family = "Inter"
+weight = 100
+
+[[theme.fontFaces]]
+url = "app/static/styrene/InterLight.otf"
+family = "Inter"
+weight = 300
+
+[[theme.fontFaces]]
+url = "app/static/styrene/InterRegular.otf"
+family = "Inter"
+weight = 400
+
+[[theme.fontFaces]]
+url = "app/static/styrene/InterMedium.otf"
+family = "Inter"
+weight = 500
+
+[[theme.fontFaces]]
+url = "app/static/styrene/InterBold.otf"
+family = "Inter"
+weight = 700
+
+[[theme.fontFaces]]
+url = "app/static/styrene/InterBlack.otf"
+family = "Inter"
+weight = 900
+
+
+[[theme.fontFaces]]
+url = "app/static/Inter_Family/InterThin-Trial.otf"
+family = "Inter"
+weight = 100
+
+[[theme.fontFaces]]
+url = "app/static/Inter_Family/InterLight-Trial.otf"
+family = "Inter"
+weight = 300
+
+[[theme.fontFaces]]
+url = "app/static/Inter_Family/InterRegular-Trial.otf"
+family = "Inter"
+weight = 400
+
+[[theme.fontFaces]]
+url = "app/static/Inter_Family/InterMedium-Trial.otf"
+family = "Inter"
+weight = 500
+
+[[theme.fontFaces]]
+url = "app/static/Inter_Family/InterBold-Trial.otf"
+family = "Inter"
+weight = 700
+
+[[theme.fontFaces]]
+url = "app/static/Inter_Family/InterBlack-Trial.otf"
+family = "Inter"
+weight = 900
