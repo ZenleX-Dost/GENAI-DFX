@@ -1,4 +1,6 @@
-# This Project is made by Amine EL HEND and Mouad BOULAID
+# GENERATIVE AI IN PRODUCT DESIGN (AND RESPECTING DFX ASPECTS)
+
+### This Project is made by : Amine EL HEND & Mouad BOULAID
 
 ## Problem of traditional product design with Dfx
 Whenever a product is getting made, it must go through a phase in which the industrial designers make prototypes and try to represent the product the customer is willing to buy.
