@@ -88,7 +88,7 @@ Now that the image is generated, Mistral generates a report explaining how the p
 - Ollama
 - Transformers
 - Diffusers
-- Torch
+- Torch ( if you have an NVIDIA Graphics card, Make sure your system has: NVIDIA driver >= 515 & CUDA 11.8 toolkit // Check the requirements.txt ) (optional; not needed if using PyTorch's bundled runtime)
 - Pillow
 - Pandas
 
