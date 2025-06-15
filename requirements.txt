@@ -1,0 +1,17 @@
+# Core libraries
+streamlit>=1.25
+diffusers>=0.20.0
+transformers>=4.30.0
+Pillow>=9.5.0
+ollama>=0.1.6
+numpy>=1.24
+scipy>=1.10.0
+accelerate>=0.21.0
+safetensors>=0.3.0
+
+# PyTorch with CUDA 11.8 (for compatible NVIDIA GPUs)
+torch==2.1.0+cu118
+torchvision==0.16.0+cu118
+torchaudio==2.1.0+cu118
+# Use this index to install CUDA-enabled wheels
+-f https://download.pytorch.org/whl/torch_stable.html
